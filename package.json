@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "description": "A javascript port of awslabs/dynamodb-geo, for dynamodb geospatial querying",
   "scripts": {
-    "prepublish": "tsc -d",
+    "prepublishOnly": "tsc -d",
     "clean": "rm -rf dist",
     "build": "tsc -d",
     "test": "mocha --require ts-node/register test/**/*.ts"
@@ -25,8 +25,8 @@
     "aws-sdk": "^2.248.1",
     "chai": "^4.0.1",
     "mocha": "^3.3.0",
-    "ts-node": "^3.0.2",
-    "typescript": "^2.3.4"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
   },
   "peerDependencies": {
     "aws-sdk": "^2.176.0"
