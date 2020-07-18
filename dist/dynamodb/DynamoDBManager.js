@@ -1,18 +1,4 @@
 "use strict";
-/*
- * Copyright 2010-2013 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -97,7 +83,9 @@ var DynamoDBManager = /** @class */ (function () {
                                             keyConditions = {};
                                             keyConditions[this.config.hashKeyAttributeName] = {
                                                 ComparisonOperator: "EQ",
-                                                AttributeValueList: [{ N: hashKey.toString(10) }],
+                                                AttributeValueList: [
+                                                    { S: this.config.pk_prefix + "-" + hashKey.toString(10) },
+                                                ],
                                             };
                                             minRange = {
                                                 N: range.rangeMin.toString(10),
@@ -146,7 +134,9 @@ var DynamoDBManager = /** @class */ (function () {
         var getItemInput = getPointInput.GetItemInput;
         getItemInput.TableName = this.config.tableName;
         getItemInput.Key = (_a = {},
-            _a[this.config.hashKeyAttributeName] = { N: hashKey.toString(10) },
+            _a[this.config.hashKeyAttributeName] = {
+                S: this.config.pk_prefix + "-" + hashKey.toString(10),
+            },
             _a[this.config.rangeKeyAttributeName] = getPointInput.RangeKeyValue,
             _a);
         return this.config.dynamoDBClient.getItem(getItemInput);
@@ -156,7 +146,7 @@ var DynamoDBManager = /** @class */ (function () {
         var hashKey = S2Manager_1.S2Manager.generateHashKey(geohash, this.config.hashKeyLength);
         var putItemInput = __assign(__assign({}, putPointInput.PutItemInput), { TableName: this.config.tableName, Item: putPointInput.PutItemInput.Item || {} });
         putItemInput.Item[this.config.hashKeyAttributeName] = {
-            N: hashKey.toString(10),
+            S: this.config.pk_prefix + "-" + hashKey.toString(10),
         };
         putItemInput.Item[this.config.rangeKeyAttributeName] =
             putPointInput.RangeKeyValue;
@@ -185,7 +175,7 @@ var DynamoDBManager = /** @class */ (function () {
                 Item: putItemInput.Item || {},
             };
             putRequest.Item[_this.config.hashKeyAttributeName] = {
-                N: hashKey.toString(10),
+                S: _this.config.pk_prefix + "-" + hashKey.toString(10),
             };
             putRequest.Item[_this.config.rangeKeyAttributeName] =
                 putPointInput.RangeKeyValue;
@@ -222,7 +212,7 @@ var DynamoDBManager = /** @class */ (function () {
             updatePointInput.UpdateItemInput.Key = {};
         }
         updatePointInput.UpdateItemInput.Key[this.config.hashKeyAttributeName] = {
-            N: hashKey.toString(10),
+            S: this.config.pk_prefix + "-" + hashKey.toString(10),
         };
         updatePointInput.UpdateItemInput.Key[this.config.rangeKeyAttributeName] =
             updatePointInput.RangeKeyValue;
@@ -238,7 +228,9 @@ var DynamoDBManager = /** @class */ (function () {
         var geohash = S2Manager_1.S2Manager.generateGeohash(deletePointInput.GeoPoint);
         var hashKey = S2Manager_1.S2Manager.generateHashKey(geohash, this.config.hashKeyLength);
         return this.config.dynamoDBClient.deleteItem(__assign(__assign({}, deletePointInput.DeleteItemInput), { TableName: this.config.tableName, Key: (_a = {},
-                _a[this.config.hashKeyAttributeName] = { N: hashKey.toString(10) },
+                _a[this.config.hashKeyAttributeName] = {
+                    S: this.config.pk_prefix + "-" + hashKey.toString(10),
+                },
                 _a[this.config.rangeKeyAttributeName] = deletePointInput.RangeKeyValue,
                 _a) }));
     };

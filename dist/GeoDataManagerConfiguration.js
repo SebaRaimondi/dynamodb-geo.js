@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GeoDataManagerConfiguration = void 0;
 var nodes2ts_1 = require("nodes2ts");
 var GeoDataManagerConfiguration = /** @class */ (function () {
-    function GeoDataManagerConfiguration(dynamoDBClient, tableName) {
+    function GeoDataManagerConfiguration(dynamoDBClient, tableName, prefix) {
         this.consistentRead = false;
         this.hashKeyAttributeName = "hashKey";
         this.rangeKeyAttributeName = "rangeKey";
@@ -30,10 +30,11 @@ var GeoDataManagerConfiguration = /** @class */ (function () {
          *
          * @type {string}
          */
-        this.geoJsonPointType = 'Point';
+        this.geoJsonPointType = "Point";
         this.dynamoDBClient = dynamoDBClient;
         this.tableName = tableName;
         this.S2RegionCoverer = nodes2ts_1.S2RegionCoverer;
+        this.pk_prefix = prefix;
     }
     // Public constants
     GeoDataManagerConfiguration.MERGE_THRESHOLD = 2;

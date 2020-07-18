@@ -44,41 +44,41 @@ var GeoTableUtil = /** @class */ (function () {
             TableName: config.tableName,
             ProvisionedThroughput: {
                 ReadCapacityUnits: 10,
-                WriteCapacityUnits: 5
+                WriteCapacityUnits: 5,
             },
             KeySchema: [
                 {
                     KeyType: "HASH",
-                    AttributeName: config.hashKeyAttributeName
+                    AttributeName: config.hashKeyAttributeName,
                 },
                 {
                     KeyType: "RANGE",
-                    AttributeName: config.rangeKeyAttributeName
-                }
+                    AttributeName: config.rangeKeyAttributeName,
+                },
             ],
             AttributeDefinitions: [
-                { AttributeName: config.hashKeyAttributeName, AttributeType: 'N' },
-                { AttributeName: config.rangeKeyAttributeName, AttributeType: 'S' },
-                { AttributeName: config.geohashAttributeName, AttributeType: 'N' }
+                { AttributeName: config.hashKeyAttributeName, AttributeType: "S" },
+                { AttributeName: config.rangeKeyAttributeName, AttributeType: "S" },
+                { AttributeName: config.geohashAttributeName, AttributeType: "N" },
             ],
             LocalSecondaryIndexes: [
                 {
                     IndexName: config.geohashIndexName,
                     KeySchema: [
                         {
-                            KeyType: 'HASH',
-                            AttributeName: config.hashKeyAttributeName
+                            KeyType: "HASH",
+                            AttributeName: config.hashKeyAttributeName,
                         },
                         {
-                            KeyType: 'RANGE',
-                            AttributeName: config.geohashAttributeName
-                        }
+                            KeyType: "RANGE",
+                            AttributeName: config.geohashAttributeName,
+                        },
                     ],
                     Projection: {
-                        ProjectionType: 'ALL'
-                    }
-                }
-            ]
+                        ProjectionType: "ALL",
+                    },
+                },
+            ],
         };
     };
     return GeoTableUtil;

@@ -47,8 +47,8 @@ export interface UpdatePointInput {
 export interface UpdatePointOutput extends DynamoDB.UpdateItemOutput {}
 
 export interface ExtraQuery {
-  ProjectionExpression: string;
-  ExpressionAttributeNames: { [key: string]: string };
-  FilterExpression: string;
-  ExpressionAttributeValues: { [key: string]: { [key: string]: string } };
+  ProjectionExpression?: string;
+  ExpressionAttributeNames?: { [key: string]: string };
+  FilterExpression?: string;
+  ExpressionAttributeValues?: { [key: string]: { [key: string]: string } };
 }

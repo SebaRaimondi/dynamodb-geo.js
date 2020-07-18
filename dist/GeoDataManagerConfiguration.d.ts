@@ -10,6 +10,7 @@ export declare class GeoDataManagerConfiguration {
     geoJsonAttributeName: string;
     geohashIndexName: string;
     hashKeyLength: number;
+    pk_prefix: string;
     /**
      * The order of the GeoJSON coordinate pair in data.
      * Use false [lat, lon] for compatibility with the Java library https://github.com/awslabs/dynamodb-geo
@@ -29,8 +30,8 @@ export declare class GeoDataManagerConfiguration {
      *
      * @type {string}
      */
-    geoJsonPointType: 'Point' | 'POINT';
+    geoJsonPointType: "Point" | "POINT";
     dynamoDBClient: DynamoDB;
     S2RegionCoverer: typeof S2RegionCoverer;
-    constructor(dynamoDBClient: any, tableName: string);
+    constructor(dynamoDBClient: any, tableName: string, prefix: string);
 }

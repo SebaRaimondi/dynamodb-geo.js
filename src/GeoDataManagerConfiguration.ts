@@ -16,7 +16,6 @@ import { DynamoDB } from "aws-sdk";
 import { S2RegionCoverer } from "nodes2ts";
 
 export class GeoDataManagerConfiguration {
-
   // Public constants
   static MERGE_THRESHOLD = 2;
 
@@ -33,6 +32,8 @@ export class GeoDataManagerConfiguration {
   geohashIndexName: string = "geohash-index";
 
   hashKeyLength: number = 2;
+
+  pk_prefix: string;
 
   /**
    * The order of the GeoJSON coordinate pair in data.
@@ -54,15 +55,16 @@ export class GeoDataManagerConfiguration {
    *
    * @type {string}
    */
-  geoJsonPointType: 'Point' | 'POINT' = 'Point';
+  geoJsonPointType: "Point" | "POINT" = "Point";
 
   dynamoDBClient: DynamoDB;
 
   S2RegionCoverer: typeof S2RegionCoverer;
 
-  constructor(dynamoDBClient, tableName: string) {
+  constructor(dynamoDBClient, tableName: string, prefix: string) {
     this.dynamoDBClient = dynamoDBClient;
     this.tableName = tableName;
     this.S2RegionCoverer = S2RegionCoverer;
+    this.pk_prefix = prefix;
   }
 }
